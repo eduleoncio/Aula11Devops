@@ -35,7 +35,7 @@ public class ProdutoController {
     @PutMapping("/{id}")
     public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto dados) {
         for (Produto produto : produtos) {
-            if (produto.getId().equals(id)) {
+            if (id.equals(produto.getId())) {
                 produto.setNome(dados.getNome());
                 produto.setPreco(dados.getPreco());
                 return ResponseEntity.ok(produto);
@@ -46,7 +46,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        boolean removido = produtos.removeIf(produto -> produto.getId().equals(id));
+        boolean removido = produtos.removeIf(produto -> id.equals(produto.getId()));
         return removido
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();
